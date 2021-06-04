@@ -1,0 +1,21 @@
+{% extends "base.html.twig"%}
+{# 
+{% block title %}Créer clients
+{% endblock %} #}
+{% block body %}
+
+	<h1>Connexion</h1>
+	{{ form_start(loginForm) }}
+
+	{{ form_widget(loginForm) }}
+
+	{% if error %}
+		<div class="alert">
+			{{ error }}</div>
+	{% endif %}
+
+	<button class="btn btn-success">Connexion</button>
+
+	{{ form_end(loginForm) }}
+
+{% endblock %}

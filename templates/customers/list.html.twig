@@ -1,0 +1,43 @@
+ {% extends "base.html.twig" %}
+
+{% block title %} Liste des clients {% endblock %}
+
+{% block body %}
+    <h1>Liste des clients</h1>
+
+    {% if is_granted("CAN_CREATE_CUSTOMER") %}
+        <p><a href="{{ path('customers_create') }}" class="btn btn-success">Creer un nouveau client</a></p>
+    {% endif %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Client</th>
+            <th>Email</th>
+            {% if is_granted("CAN_LIST_ALL_CUSTOMERS") %}
+                <th>Proprietaire</th>
+            {% endif %}
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in customers %}
+            <tr>
+                <td>{{ c.getFullName }}</td>
+                <td>{{ c.email }}</td>
+                {% if is_granted("CAN_LIST_ALL_CUSTOMERS") %}
+                    <td>{{ c.user.fullName }}</td>
+                {% endif %}
+                <td>
+                    {% if is_granted("CAN_EDIT", c) %}
+                        <a href="{{ path('customers_edit', {'id': c.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                    {% endif %}
+                    {% if is_granted("CAN_REMOVE", c) %}
+                        <a href="{{ path('customers_delete', {'id': c.id}) }}"
+                            class="btn btn-danger btn-sm ml-1">Supprimer</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

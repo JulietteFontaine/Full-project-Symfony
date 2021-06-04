@@ -1,0 +1,25 @@
+{% extends "base.html.twig"%}
+{% block title %}Créer clients
+{% endblock %}
+{% block body %}
+
+	<h1>Créer un nouveau client</h1>
+
+	{{ form_start(form) }}
+	<div class="form-group">
+
+		{{ form_widget(form)}}
+
+		<button class="btn btn-success">Enregistrer</button>
+		{{ form_end(form) }}
+
+	{% endblock %}
+
+{% block form_row %}
+<div class='form-group' style='background-color: red'>
+		{{ form_label(form)}}
+		{{ form_widget(form)}}
+		{{ form_errors(form)}}
+
+</div>
+	{% endblock %}

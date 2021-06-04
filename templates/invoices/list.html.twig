@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Liste des clients
+{% endblock %}
+
+{% block body %}
+	<h1>Liste des factures</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Numero de facture</th>
+				<th>Client</th>
+				<th>Montant</th>
+				<th>Date de création</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for i in invoices %}
+				<tr>
+					<td>{{ i.id }}</td>
+					<td>{{ i.customer.fullName }}</td>
+					<td>{{ i.amount / 100 }}</td>
+					<td>{{ i.createdAt | date('d/m/Y') }}</td>
+					<td>
+						<a href="{{ path('invoice_edit', {'id': i.id}) }}" class="btn btn-danger btn-sm ml-1">Modifier</a>
+						<a href="{{ path('invoice_delete', {'id': i.id}) }}" class="btn btn-danger btn-sm ml-1">Supprimer</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

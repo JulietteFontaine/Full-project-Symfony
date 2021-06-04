@@ -1,0 +1,78 @@
+{% extends "base.html.twig" %}
+
+{%  block body %}
+    <h1>Bienvenue dans votre CRM !</h1>
+
+    <div class="row">
+        <div class="col">
+            <h2>Les 5 dernieres factures</h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Montant</th>
+                    <th>Date</th>
+                    <th>Client</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in lastInvoices %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.amount / 100 }}</td>
+                    <td>{{ i.createdAt | date('d/m/Y') }}</td>
+                    <td>{{ i.customer.fullName }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col">
+            <h2>Les 3 meilleurs client</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Chiffre réalisé</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {%  for c in bestCustomers %}
+                <tr>
+                    <td>{{ c.firstName }}{{ c.lastName }}</td>
+                    <td>{{ c.total / 100 }} $</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col">
+            <h2>Historique du chiffre d'affaire</h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Chiffre d'affaire</th>
+                    <th>Mois</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for s in lastSales %}
+                <tr>
+                    <td>{{ s.total / 100 }}</td>
+                    <td>{{ s.mois }} / {{ s.annee }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+{%  endblock %}
